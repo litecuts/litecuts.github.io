@@ -1,8 +1,16 @@
 let grid = createEmptyGrid(10, 10);
 let rows, cols, cellWidth, cellHeight;
+let bgMusic;
+let clickSound;
+
+function preload() {
+  bgMusic = loadSound("assets/in_the_middle_of_nowhere_remix.ogg");
+  clickSound = loadSound("assets/click.wav");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  bgMusic.loop();
   rows = grid.length;
   cols = grid[0].length;
   cellWidth = width/cols;
@@ -15,6 +23,8 @@ function draw() {
 }
 
 function mousePressed() {
+  clickSound.play();
+
   let x = Math.floor(mouseX / cellWidth);
   let y = Math.floor(mouseY / cellHeight);
 
