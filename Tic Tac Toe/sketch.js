@@ -2,12 +2,15 @@ let grid = createEmptyGrid(3, 3);
 let rows, cols, cellWidth, cellHeight;
 let bgMusic;
 let clickSound;
-let tic;
+let xImage;
+let oImage;
 
 function preload() {
-  bgMusic = loadSound("assets/in_the_middle_of_nowhere_remix.ogg");
+  bgMusic = loadSound("assets/Bg music.ogg");
   clickSound = loadSound("assets/click.wav");
-  tic = loadImage("assets/X.png");
+  xImage = loadImage("assets/X.png");
+  oImage = loadImage("assets/circle.png");
+
 }
 
 function setup() {
@@ -26,7 +29,7 @@ function draw() {
 
 function mousePressed() {
   clickSound.play();
-
+  
   let x = Math.floor(mouseX / cellWidth);
   let y = Math.floor(mouseY / cellHeight);
 
@@ -38,7 +41,6 @@ function mousePressed() {
 }
 
 function toggleCell(x, y) {
- 
   if (x >= 0 && x < cols && y >= 0 && y < rows) {
     if (grid[y][x] === 1) {
       grid[y][x] = 0;
@@ -54,12 +56,12 @@ function displayGrid() {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
       if (grid[y][x] === 0) {
-        fill("red");
+        fill("blue");
       }
       if (grid[y][x] === 1) {
-        fill("black");
+        fill("red");
       }
-      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight, tic);
+      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
   }
 }
