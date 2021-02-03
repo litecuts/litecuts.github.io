@@ -1,19 +1,16 @@
 const GRIDSIZE = 40;
 let grid, rows, cols, cellWidth, cellHeight;
-// let bgMusic;
 let clickSound;
 let autoTurn = false;
 let gosper;
 
 function preload() {
-  // bgMusic = loadSound("assets/background.mp3");
   clickSound = loadSound("assets/click3.wav");
   gosper = loadJSON("assets/gosper.json");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // bgMusic.loop();
   grid = createEmptyGrid(GRIDSIZE, GRIDSIZE);
   rows = grid.length;
   cols = grid[0].length;
@@ -43,7 +40,6 @@ function mousePressed() {
 }
 
 function toggleCell(x, y) {
-  //check that the coordinates are in the array
   if (x >= 0 && x < cols && y >= 0 && y < rows) {
     if (grid[y][x] === 1) {
       grid[y][x] = 0;

@@ -1,4 +1,4 @@
-// Fireworks OOP demo
+// Fireworks OOP 
 
 let fireworks = [];
 
@@ -26,7 +26,7 @@ function mousePressed() {
   for (let i=0; i<numberOfParticles; i++) {
     let xSpeed = cos(theta)*2 + random(-0.5, 0.5);
     let ySpeed = sin(theta)*2 + random(-0.5, 0.5);
-    let someParticle = new Particle(mouseX, mouseY, xSpeed, ySpeed,255, 0, 0, 255);
+    let someParticle = new Particle(mouseX, mouseY, xSpeed, ySpeed,245, 150, 100, 255);
     fireworks.push(someParticle);
     theta += 360/numberOfParticles;
   }
@@ -50,7 +50,7 @@ class Particle {
     this.x += this.dx;
     this.y += this.dy;
     this.dy += this.gravity;
-    this.a -= 2;  //slowly fade away
+    this.a -= 2; 
   }
 
   display() {
