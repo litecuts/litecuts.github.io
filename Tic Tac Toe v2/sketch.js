@@ -11,8 +11,8 @@ let playerImg, wallImg, grassImg;
 
 function preload() {
   someMaze = loadJSON("assets/myMaze.json");
-  playerImg = loadImage("assets/Armor_Gold.png");
-  wallImg = loadImage("assets/stoneWallStandard.png");
+  playerImg = loadImage("assets/Letter X.png");
+  wallImg = loadImage("assets/O.png");
   grassImg = loadImage("assets/grass.png");
 }
 

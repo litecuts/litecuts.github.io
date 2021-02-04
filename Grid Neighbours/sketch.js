@@ -1,11 +1,18 @@
+
 let grid = createEmptyGrid(3, 3);
 let rows, cols, cellWidth, cellHeight;
 let bgMusic;
 let clickSound;
+let xImg, oImg;
+
+
+function preload() {
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rows = grid.length;
+xImg = loadImage("assets/Letter X.png")
   cols = grid[0].length;
   cellWidth = width/cols;
   cellHeight = height/rows;
@@ -22,14 +29,9 @@ function mousePressed() {
   let y = Math.floor(mouseY / cellHeight);
 
   toggleCell(x, y);   //self
-  toggleCell(x, y-1); //north
-  toggleCell(x, y+1); //south
-  toggleCell(x+1, y); //east
-  toggleCell(x-1, y); //west
 }
 
 function toggleCell(x, y) {
-  //check that the coordinates are in the array
   if (x >= 0 && x < cols && y >= 0 && y < rows) {
     if (grid[y][x] === 1) {
       grid[y][x] = 0;
@@ -44,11 +46,11 @@ function toggleCell(x, y) {
 function displayGrid() {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
-      if (grid[y][x] === 0) {
-        fill("blue");
+      if (grid[y][x] === 3) {
+        image(oImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       if (grid[y][x] === 1) {
-        fill("red");
+        image(xImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
