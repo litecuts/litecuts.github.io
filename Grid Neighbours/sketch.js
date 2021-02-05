@@ -1,23 +1,19 @@
 
 let grid = createEmptyGrid(3, 3);
 let rows, cols, cellWidth, cellHeight;
-let bgMusic;
-let clickSound;
-let xImg, oImg;
-
-
-function preload() {
-}
+let playerImg, player2Img;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rows = grid.length;
-xImg = loadImage("assets/Letter X.png")
   cols = grid[0].length;
   cellWidth = width/cols;
   cellHeight = height/rows;
 }
-
+function preload() {
+  playerImg = image("assets/Letter X.png");
+  player2Img = image("assets/O.png");
+}
 function draw() {
   background(220);
   displayGrid();
@@ -28,10 +24,17 @@ function mousePressed() {
   let x = Math.floor(mouseX / cellWidth);
   let y = Math.floor(mouseY / cellHeight);
 
-  toggleCell(x, y);   //self
+  toggleCell(x, y);   
+  toggleCell(x, y); 
+  toggleCell(x, y); 
+  toggleCell(x, y); 
+  toggleCell(x, y); 
 }
 
+
+
 function toggleCell(x, y) {
+
   if (x >= 0 && x < cols && y >= 0 && y < rows) {
     if (grid[y][x] === 1) {
       grid[y][x] = 0;
@@ -46,13 +49,13 @@ function toggleCell(x, y) {
 function displayGrid() {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
-      if (grid[y][x] === 3) {
-        image(oImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      if (grid[y][x] === 0) {
+        fill("white");
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       if (grid[y][x] === 1) {
-        image(xImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(playerImg,x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
-      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
   }
 }
