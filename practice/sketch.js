@@ -1,65 +1,76 @@
-function bestMove() {
-    // AI to make its turn
-    let bestScore = -Infinity;
-    let move;
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        // Is the spot available?
-      if (board[i][j] == '') {
-          board[i][j] = ai;
-        let score = minimax(board, 0, false);
-          board[i][j] = '';
-          if (score > bestScore) {
-            bestScore = score;
-            move = { i, j };
-          }
-        }
-      }
+// Grid Neighbours
+
+let grid = createEmptyGrid(4, 4);
+let rows, cols, cellWidth, cellHeight;
+let bgMusic;
+let clickSound;
+
+function preload() {
+  bgMusic = loadSound("assets/background.mp3");
+  clickSound = loadSound("assets/click3.wav");
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  bgMusic.loop();
+  rows = grid.length;
+  cols = grid[0].length;
+  cellWidth = width/cols;
+  cellHeight = height/rows;
+}
+
+function draw() {
+  background(220);
+  displayGrid();
+}
+
+function mousePressed() {
+  clickSound.play();
+  
+  let x = Math.floor(mouseX / cellWidth);
+  let y = Math.floor(mouseY / cellHeight);
+
+  toggleCell(x, y);   //self
+  toggleCell(x, y-1); //north
+  toggleCell(x, y+1); //south
+  toggleCell(x+1, y); //east
+  toggleCell(x-1, y); //west
+}
+
+function toggleCell(x, y) {
+  //check that the coordinates are in the array
+  if (x >= 0 && x < cols && y >= 0 && y < rows) {
+    if (grid[y][x] === 1) {
+      grid[y][x] = 0;
     }
-    board[move.i][move.j] = ai;
-    currentPlayer = human;
-  }
-  
-  let scores = {
-    X: 10,
-    O: -10,
-    tie: 0
-  };
-  
-  function minimax(board, depth, isMaximizing) {
-    let result = checkWinner();
-    if (result !== null) {
-      return scores[result];
-    }
-  
-    if (isMaximizing) {
-      let bestScore = -Infinity;
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-          // Is the spot available?
-          if (board[i][j] == '') {
-            board[i][j] = ai;
-            let score = minimax(board, depth + 1, false);
-            board[i][j] = '';
-            bestScore = max(score, bestScore);
-          }
-        }
-      }
-      return bestScore;
-    } else {
-      let bestScore = Infinity;
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-          // Is the spot available?
-          if (board[i][j] == '') {
-            board[i][j] = human;
-            let score = minimax(board, depth + 1, true);
-            board[i][j] = '';
-            bestScore = min(score, bestScore);
-          }
-        }
-      }
-      return bestScore;
+    else if (grid[y][x] === 0) {
+      grid[y][x] = 1;
     }
   }
-  
+}
+
+
+function displayGrid() {
+  for (let y=0; y<rows; y++) {
+    for (let x=0; x<cols; x++) {
+      if (grid[y][x] === 0) {
+        fill("blue");
+      }
+      if (grid[y][x] === 1) {
+        fill("red");
+      }
+      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+    }
+  }
+}
+
+function createEmptyGrid(cols, rows) {
+  let empty = [];
+  for (let y=0; y<rows; y++) {
+    empty.push([]);
+    for (let x=0; x<cols; x++) {
+      empty[y].push(0);
+    }
+  }
+  return empty;
+}
