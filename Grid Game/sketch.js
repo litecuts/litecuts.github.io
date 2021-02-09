@@ -18,13 +18,14 @@ let someMaze;
 let anotherMaze;
 let level3;
 let playerImg, wallImg, grassImg, endImg;
-let bgmusic;
+let bgMusic;
 let c;
 let endMsg = "";
+let clickSound;
 // Added Sound Effects, Levels  and Images
 function preload() {
-  level3 = loadJSON("assets/level3.json")
-  anotherMaze = loadJSON("assets/level2.json")
+  level3 = loadJSON("assets/level3.json");
+  anotherMaze = loadJSON("assets/level2.json");
   someMaze = loadJSON("assets/Level1.json");
   playerImg = loadImage("assets/Letter X.png");
   wallImg = loadImage("assets/O.png");
@@ -50,26 +51,26 @@ function draw() {
   displayBall();
   
   // An if statement For the starting Screen to dissappear
-  if(screen == 0) {
-    startScreen()
-  } if (screen == 1){
+  if(screen === 0) {
+    startScreen();
+  } if (screen === 1){
     displayGrid();
   }
 }
 
 // All The texts in the opening
 function startScreen(){
-  background(96, 157, 255)
-  fill(255)
+  background(96, 157, 255);
+  fill(255);
   textAlign(CENTER);
-  text('WELCOME TO MY GRID GAME', width / 2, height / 2)
-  text('Your Job is to get to the bottom right and then back top left of the grid', width / 2, height / 2 + 40);
-  text('Press 1 To Load Level 1 and click anywhere to start. Use W, A, S, D to move around the Grid', width / 2, height / 2 + 80);
-  text('After you Finish Level 1 press 2 for Level 2 and 3 for Level 3', width / 2, height / 2 + 100)
-  text('Click To Start', width / 2, height / 2 + 140);
-  text('Good Luck !', width / 2, height / 2 + 180)
-  text('And the balls are just to confuse your path, You will not die if you touch them', width / 2, height / 2 + 220)
-  textSize(20)
+  text("WELCOME TO MY GRID GAME", width / 2, height / 2);
+  text("Your Job is to get to the bottom right and then back top left of the grid", width / 2, height / 2 + 40);
+  text("Press 1 To Load Level 1 and click anywhere to start. Use W, A, S, D to move around the Grid", width / 2, height / 2 + 80);
+  text("After you Finish Level 1 press 2 for Level 2 and 3 for Level 3", width / 2, height / 2 + 100);
+  text("Click To Start", width / 2, height / 2 + 140);
+  text("Good Luck !", width / 2, height / 2 + 180);
+  text("And the balls are just to confuse your path, You will not die if you touch them", width / 2, height / 2 + 220);
+  textSize(20);
 }
 
 function mousePressed() {
@@ -78,28 +79,27 @@ function mousePressed() {
   if (grid[y][x] === 1) { //if wall
     grid[y][x] = 0;       //make it empty
   }
-  if (screen == 0){
-  	screen = 1;
+  if (screen === 0){
+    screen = 1;
   }
 }
-
-  // A function for the array of Bouncing Balls to function
-  function moveBall() {
-    for (let ball of theBouncingBalls) {
-      ball.k += ball.dk;
-      ball.j += ball.dj;
+// A function for the array of Bouncing Balls to function
+function moveBall() {
+  for (let ball of theBouncingBalls) {
+    ball.k += ball.dk;
+    ball.j += ball.dj;
     
-      //check for bounce
-      if (ball.k + ball.diameter/2 >= width ||
+    //check for bounce
+    if (ball.k + ball.diameter/2 >= width ||
           ball.k - ball.diameter/2 <= 0) {
-        ball.dk *= -1;
-      }
-      if (ball.j + ball.diameter/2 >= height ||
-         ball.j - ball.diameter/2 <= 0) {
-        ball.dj *= -1;
-      }
+      ball.dk *= -1;
     }
-  }      
+    if (ball.j + ball.diameter/2 >= height ||
+         ball.j - ball.diameter/2 <= 0) {
+      ball.dj *= -1;
+    }
+  }
+}      
     
   
 function keyPressed() {
@@ -165,6 +165,7 @@ function movePlayer(x, y, oldX, oldY, direction) {
 function displayGrid() {
   for (let y=0; y<ROWS; y++) {
     for (let x=0; x<COLS; x++) {
+      // eslint-disable-next-line no-empty
       if (grid[y][x] === 0) {
       }
       else if (grid[y][x] === 1) {
