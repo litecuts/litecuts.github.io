@@ -9,7 +9,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(random(255, 255, 255));
   
   let howMany = width;
   for (let i=bikeLocation; i<bikeLocation+howMany; i++) {
